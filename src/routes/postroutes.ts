@@ -4,6 +4,7 @@ import {
   getPost,
   criarPost,
   atualizarPost,
+  deletePost,
 } from "../models/postmodels";
 //import multer from "multer";
 
@@ -33,4 +34,7 @@ export const rotas = new Hono()
     let data = await c.req.json();
     await Bun.write("livros.json", JSON.stringify(data, null, 2));
     return c.json(data);
+  })
+  .delete("/posts/mongodb/:id", async (c) => {
+    return c.json(await deletePost(c.req.param("id")));
   });

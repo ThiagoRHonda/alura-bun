@@ -12,8 +12,7 @@ export async function getPost(id: string) {
   return conexao
     .db("imersao-instabytes")
     .collection("posts")
-    .find({ _id: new ObjectId(objId) })
-    .toArray();
+    .findOne({ _id: new ObjectId(objId) });
 }
 
 export async function criarPost(novopost: any) {
@@ -29,4 +28,12 @@ export async function atualizarPost(id: string, novopost: any) {
     .db("imersao-instabytes")
     .collection("posts")
     .updateOne({ _id: new ObjectId(objId) }, { $set: novopost });
+}
+
+export async function deletePost(id: string) {
+  const objId = ObjectId.createFromHexString(id);
+  return conexao
+    .db("imersao-instabytes")
+    .collection("posts")
+    .deleteOne({ _id: new ObjectId(objId) });
 }
